@@ -1,0 +1,33 @@
+
+# Gradle
+.gradle/
+/build/
+
+# Kotlin
+*.class
+*.jar
+*.war
+*.ear
+*.apk
+*.aar
+*.klib
+*.kpt
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Logs
+*.log
+
+# Misc
+*.csv
