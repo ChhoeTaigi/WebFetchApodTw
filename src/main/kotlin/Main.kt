@@ -65,12 +65,17 @@ suspend fun main() {
     }
 
     val rows = mutableListOf<List<String>>()
-    rows.add(listOf("漢羅", "POJ", "KIP", "華語", "English", "LaigoanMia", "LaigoanBangchi"))
+    rows.add(listOf("DictWordID", "SuBe", "漢羅", "POJ", "KIP", "華語", "English", "LaigoanMia", "LaigoanBangchi"))
     articles.sortByDescending { it.date }
     for (article in articles) {
+        var vocabularyIndex = 1
         for (vocabulary in article.vocabulary) {
+            val formattedDate = article.date.format(formatter)
+            val dictWordId = String.format("APODTW-%s-%03d", formattedDate, vocabularyIndex)
             rows.add(
                 listOf(
+                    dictWordId,
+                    dictWordId,
                     vocabulary.hanLo,
                     vocabulary.poj,
                     vocabulary.kip,
@@ -80,11 +85,13 @@ suspend fun main() {
                     article.source
                 )
             )
+            vocabularyIndex++
         }
     }
 
-    csvWriter().writeAll(rows, "apod_tw_vocabulary.csv")
-    println("Data saved to apod_tw_vocabulary.csv")
+    val outputFileName = "apod_tw_vocabulary_${today.format(formatter)}.csv"
+    csvWriter().writeAll(rows, outputFileName)
+    println("Data saved to $outputFileName")
 }
 
 data class Article(val date: LocalDate, val source: String, val vocabulary: List<Vocabulary>)
